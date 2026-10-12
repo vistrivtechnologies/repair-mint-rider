@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const STAGING_API_URL = "https://fixmate-api.neutonsoft.com/api/eserve/v1/";
+const STAGING_API_URL = "http://10.0.2.2:8000/api/eserve/v1/";
 // const STAGING_API_URL = "http://localhost:8000/api/eserve/v1/";
 
 export const API_URL = STAGING_API_URL;
@@ -35,3 +35,4 @@ export const UserService = {
     return APIKit.post("login", payload, apiHeaders);
   }
 };
+
