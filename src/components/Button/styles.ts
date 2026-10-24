@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     paddingVertical: hp(2),
     flexDirection:'row',
     alignSelf: "center",
-    backgroundColor: Colors.primaryColor,
+    backgroundColor: Colors.PRIMARY[100],
   },
   buttonView: {
     alignItems: "center",
@@ -42,3 +42,4 @@ const styles = StyleSheet.create({
 });
 
 export default styles;
+

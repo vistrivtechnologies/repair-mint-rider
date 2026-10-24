@@ -15,7 +15,7 @@ const SearchInput: React.FC<SearchInputContainerProps> = ({ searchText, onSearch
 
     const { isDarkMode, userData } = useContext<UserData>( UserDataContext );
     const background =
-        isDarkMode === "dark" ? Colors.PRIMARY[ 400 ] :Colors.PRIMARY[ 800 ];
+        isDarkMode === "dark" ? Colors.PRIMARY[ 400 ] :Colors.PRIMARY[ 700 ];
     const textColor =
         isDarkMode === "dark" ? Colors.PRIMARY[ 300 ] : Colors.PRIMARY[ 400 ];
 
@@ -39,4 +39,5 @@ const SearchInput: React.FC<SearchInputContainerProps> = ({ searchText, onSearch
 };
 
 export default SearchInput;
+
 

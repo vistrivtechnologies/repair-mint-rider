@@ -338,6 +338,7 @@ const handleRegister = async () => {
           setCountryCode(item.dial_code);
           setShowCountryPicker(false);
         }}
+        lang="en"
         inputPlaceholder="Search country or code..."
         searchMessage="Type country name or code..."
         style={{
@@ -352,3 +353,5 @@ const handleRegister = async () => {
 };
 
 export default Registration;
+
+
