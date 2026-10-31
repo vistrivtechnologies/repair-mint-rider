@@ -30,6 +30,7 @@ import { decryptData } from '../../../constant/decryptData';
 import { HttpStatusCode } from 'axios';
 import { UserData, UserDataContext } from '../../../context/userDataContext';
 import { Country } from 'react-native-country-picker-modal';
+import DeviceInfo from 'react-native-device-info';
 
 
 type LoginScreenNavigationType = NativeStackNavigationProp<AuthStackProps, 'LoginScreen'>
@@ -74,7 +75,7 @@ const LoginScreen = () => {
     onSubmit: async (data: ISigninParams) => {
       console.log('Login Data:', data);
       try {
-        if (!data.mobileNumber && !data.countryCode && !data.email) {
+        if (!data.mobileNumber && !data.email) {
           showAlert(
             'Login Issue.',
             'Please enter either Mobile Number or Email.',
@@ -87,45 +88,57 @@ const LoginScreen = () => {
         showLoader();
 
         if (data.mobileNumber && data.countryCode) {
-          const payload = {
-            phoneNumber: data.mobileNumber,
-            countryCode: data.countryCode,
-          };
+            console.log("PHONE OTP BRANCH ENTERED");
 
-          const res = await UserService.sentOtp(payload);
-          if (res && res.status === HttpStatusCode.Ok) {
-            const responseData = decryptData(res?.data?.encryptedData);
+const payload = {
+  phoneNumber: data.mobileNumber,
+  countryCode: data.countryCode,
+  isAuthServiceFor: "login",
+};
+          console.log("OTP PAYLOAD BEFORE API:", JSON.stringify(payload));
+   const res = await UserService.sentOtp(payload);
+   console.log("OTP API STATUS:", res.status);
 
+   if (res && res.status === HttpStatusCode.Ok) {
+     const responseData = decryptData(res?.data?.encryptedData);
+     console.log("OTP API DECRYPTED RESPONSE:", responseData);
+     Toast.show({
+       type: 'success',
+       text1: "OTP sent successfully on your mobile number",
+     });
 
-            Toast.show({
-              type: 'success',
-              text1: "OTP sent successfully on your mobile number",
-            });
+       const deviceId = await DeviceInfo.getUniqueId();
 
-            setContactInfo({
-              type: 'phone',
-              value: data.mobileNumber,
-              countryCode: data.countryCode,
-              deviceId: responseData?.data?.secretCode?._id
-            });
-            setTimeout(() => {
-              setShowOTPModal(true);
-            }, 500);
+       const newContactInfo = {
+         type: 'phone' as const,
+         value: data.mobileNumber,
+         countryCode: data.countryCode,
+         deviceId,
+       };
 
-          } else {
-            Toast.show({
-              type: 'error',
-              text1: 'Something went wrong!',
-            });
-          }
-          return;
+     console.log("CONTACT INFO SETTING:", newContactInfo);
+     setContactInfo(newContactInfo);
+
+     setTimeout(() => {
+       console.log("OPENING OTP MODAL");
+       setShowOTPModal(true);
+     }, 500);
+   } else {
+     Toast.show({
+       type: 'error',
+       text1: 'Something went wrong!',
+     });
+   }
+
+   return;
         }
 
         if (data.email) {
           const payload = {
-            email: data.email
+            email: data.email,
+            isAuthServiceFor: "login",
           };
-
+          console.log("OTP PAYLOAD BEFORE API:", JSON.stringify(payload));
           const res = await UserService.sentOtp(payload);
           if (res && res.status === HttpStatusCode.Ok) {
             const responseData = decryptData(res?.data?.encryptedData);
@@ -156,11 +169,20 @@ const LoginScreen = () => {
           'Continue',
           () => hideAlert()
         );
-      } catch (error) {
-        console.error('Login Error:', error);
+      } catch (error: any) {
+        console.log("LOGIN ERROR MESSAGE:", error?.message);
+        console.log("LOGIN ERROR URL:", error?.config?.url);
+        console.log("LOGIN ERROR BASE URL:", error?.config?.baseURL);
+        console.log("LOGIN HTTP STATUS:", error?.response?.status);
+        console.log(
+          "LOGIN ERROR RESPONSE:",
+          JSON.stringify(error?.response?.data, null, 2)
+        );
+
         showAlert(
           'Login Failed',
-          'Something went wrong. Please try again later.',
+          error?.response?.data?.message ||
+            'Something went wrong. Please try again later.',
           'Continue',
           () => hideAlert()
         );
@@ -175,13 +197,16 @@ const LoginScreen = () => {
     handleSubmit();
   };
 
+  console.log("LOGIN SCREEN MODAL STATE:", showOTPModal);
+  console.log("LOGIN SCREEN CONTACT INFO:", contactInfo);
+
   return (
     <View
       style={styles.container}>
       <StatusBar backgroundColor="#fff" barStyle="dark-content" />
-      <VideoWrapper
-        source={require("../../../assets/video/tech-video.mov")}
-      />
+  <VideoWrapper
+    source={require("../../../assets/video/tech-video.mov")}
+  />
       <Image source={ImagesPath.FixMantra_white_Logo_Icon} style={styles.logo} />
       <Image source={ImagesPath.delivery_Icon} style={styles.image} />
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -234,7 +259,6 @@ const LoginScreen = () => {
           </ScrollView>
         </KeyboardAvoidingView>
       </TouchableWithoutFeedback>
-
       <VerifyOTPModal
         visible={showOTPModal}
         onClose={() => setShowOTPModal(false)}

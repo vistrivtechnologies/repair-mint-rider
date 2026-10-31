@@ -2,7 +2,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Entypo from 'react-native-vector-icons/Entypo';
-import { Dashboard, DeliveredOrder, OrderDetail,PendingOrder } from '../screens';
+import { Dashboard, DeliveredOrder,PendingOrder } from '../screens';
 import { Colors } from '../constant';
 import {
   heightPercentageToDP as hp,
@@ -58,11 +58,6 @@ function BottomTabNavigator() {
         component={Dashboard}
         name={'Dashboard'}
         options={{ tabBarLabel: 'Home' }}
-      />
-      <Tab.Screen
-        component={OrderDetail}
-        name={'OrderDetail'}
-        options={{ tabBarLabel: 'Order Detail' }}
       />
       {/* <Tab.Screen
         component={MyProfile}

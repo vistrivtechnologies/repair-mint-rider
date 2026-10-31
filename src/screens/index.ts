@@ -1,30 +1,22 @@
-// Auth
+import SplashScreen from "./auth/SplashScreen/SplashScreen";
+import LoginScreen from "./auth/LoginScreen/LoginScreen";
+import Registration from "./auth/Registration/Registration";
+import OTPVerification from "./auth/OTPVerification/OTPVerification";
 
-import SplashScreen from "../screens/auth/SplashScreen/SplashScreen";
-import LoginScreen from "../screens/auth/LoginScreen/LoginScreen";
-import Registration from "../screens/auth/Registration/Registration";
-import OTPVerification from "../screens/auth/OTPVerification/OTPVerification";
-
-//DashBoard
-
-import Dashboard from "../screens/home/Dashboard/Dashboard";
-import Notification from "../screens/home/Notification/Notification";
-import DeliveredOrder from "../screens/home/orderScreens/DeliveredOrder";
-import PendingOrder from "../screens/home/orderScreens/PendingOrder";
-import OrderDetail from "../screens/home/orderScreens/OrderDetail";
-
+import Dashboard from "./home/Dashboard/Dashboard";
+import Notification from "./home/Notification/Notification";
+import DeliveredOrder from "./home/orderScreens/DeliveredOrder";
+import PendingOrder from "./home/orderScreens/PendingOrder";
+import OrderDetail from "./home/orderScreens/OrderDetail";
 
 export {
-    SplashScreen,
-    LoginScreen,
-    Registration,
-    OTPVerification,
-
-     //DashBoard
-    Dashboard,
-    Notification,
-    DeliveredOrder,
-    PendingOrder,
-    OrderDetail
-
-}
+  SplashScreen,
+  LoginScreen,
+  Registration,
+  OTPVerification,
+  Dashboard,
+  Notification,
+  DeliveredOrder,
+  PendingOrder,
+  OrderDetail,
+};

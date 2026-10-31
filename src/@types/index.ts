@@ -7,6 +7,7 @@ export type AuthStackProps = {
 
 export type HomeStackProps = {
   BottomTabNavigator: undefined;
+  OrderDetail: { order: any };
   Home: undefined;
   Invoices: undefined;
   MyAssets: undefined;

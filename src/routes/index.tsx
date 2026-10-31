@@ -5,7 +5,8 @@ import {
   DefaultTheme,
 } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { AuthStackNavigator, HomeStackNavigator } from "../navigation";
+import AuthStackNavigator from "../navigation/authStackNavigator";
+import HomeStackNavigator from "../navigation/homeStackNavigator";
 import {  StatusBar,useColorScheme } from "react-native";
 import { LocalStorage } from "../helpers/localstorage";
 import { UserData, UserDataContext } from "../context/userDataContext";
@@ -13,8 +14,6 @@ import { Colors, ImagesPath } from "../constant";
 import NetInfo from '@react-native-community/netinfo';
 import { CommonAlertModal } from "../components";
 import SplashScreen from "react-native-splash-screen";
-
-
 
 const Stack = createNativeStackNavigator();
 const Route: FC = () => {
@@ -85,24 +84,17 @@ const Route: FC = () => {
         translucent
       />
       <Stack.Navigator screenOptions={ { headerShown: false } }>
-
-        
-
-        { userLogin ? (
-
+        {String(userLogin).toLowerCase() === 'true' ? (
           <Stack.Screen
             name="HomeStackNavigator"
-            component={ HomeStackNavigator }
+            component={HomeStackNavigator}
           />
-
         ) : (
-
           <Stack.Screen
             name="AuthStackNavigator"
-            component={ AuthStackNavigator }
+            component={AuthStackNavigator}
           />
-
-        ) }
+        )}
       </Stack.Navigator>
     </NavigationContainer>
 

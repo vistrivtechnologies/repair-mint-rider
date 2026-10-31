@@ -27,7 +27,7 @@ const OtpInput: React.FC<CustomOTPInputProps> = ( {
 
   const { isDarkMode } = useContext<UserData>( UserDataContext );
 
-  const background = isDarkMode === 'dark' ? Colors.PRIMARY[ 400 ] : Colors.PRIMARY[ 800 ];
+  const background = isDarkMode === 'dark' ? Colors.PRIMARY[ 400 ] : Colors.PRIMARY[ 700 ];
   const textColor = isDarkMode === 'dark' ? Colors.PRIMARY[ 400 ] : Colors.PRIMARY[ 300 ];
 
   const handleChangeText = ( text: string, index: number ) => {
@@ -90,7 +90,7 @@ const OtpInput: React.FC<CustomOTPInputProps> = ( {
 
               borderColor: borderColor ?? '#E0E0E0',
               color: Colors.greyColor,
-              backgroundColor: isDarkMode === 'dark' ? Colors.PRIMARY[ 800 ] : '#FFFFFF',
+              backgroundColor: isDarkMode === 'dark' ? Colors.PRIMARY[ 700 ] : '#FFFFFF',
             },
             focusedInput === index && [
               styles.focusedOtpInput,

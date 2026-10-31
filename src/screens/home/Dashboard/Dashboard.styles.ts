@@ -20,10 +20,11 @@ const styles = StyleSheet.create({
     borderTopColor: '#ecf0f1',
     borderTopWidth: 1,
     width: '100%',
-    justifyContent: 'space-between',
+    justifyContent: 'space-around',
+    alignItems: 'center',
   },
   navButton: {
-    width: '20%',
+    flex: 1,
     height: '100%',
     flexDirection: 'column',
     alignItems: 'center',

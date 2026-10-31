@@ -1,4 +1,5 @@
 import React, {FC, useRef} from 'react';
+import Feather from 'react-native-vector-icons/Feather';
 import {
   Text,
   TextInput,
@@ -149,10 +150,7 @@ const FloatingTextInput: FC<TextInputProps> = ({
           <TouchableOpacity
             style={styles.secureBtn}
             onPress={() => onSecureTextPress()}>
-            <Image
-              source={isSecure ? ImagesPath.eye_open : ImagesPath.eye_close}
-              style={styles.eyeStyle}
-            />
+            <Feather name={isSecure ? "eye-off" : "eye"} size={20} color="#777" />
           </TouchableOpacity>
         )}
       </View>
@@ -162,3 +160,5 @@ const FloatingTextInput: FC<TextInputProps> = ({
 };
 
 export default FloatingTextInput;
+
+
